@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Sections from './Sections/Sections';
 import { Phonebook } from './Form/Phonebook';
 import { nanoid } from 'nanoid';
+import { ContactList } from './ContactList/ContactList';
+// import { Filter } from './Filter/Filter';
+// import ContactListItem from './ContactList/ContactListItem.js';
 
 export class App extends Component {
   state = {
@@ -13,16 +16,19 @@ export class App extends Component {
   ],
     filter: '',
   };
+
   handleDeleteUser = id => {
     this.setState(prevState => {
       return { contacts: prevState.contacts.filter(item => item.id !== id) };
     });
   };
+
   getFilteredContacts = () => {
     return this.state.contacts.filter(elem =>
       elem.name.toLowerCase().includes(this.state.filter.toLowerCase())
     );
   };
+
   onChangeName = event => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -41,14 +47,24 @@ export class App extends Component {
   };
 
   render() {
+    // const { contacts, filter } = this.state;
+    // const visibleContacts = contacts.filter(({ name }) =>
+    //   name.toLowerCase().includes(filter)
+    // );
+    
     return (
       <Sections title={'Phonebook'}>
         <Phonebook
           phoneSubmit={this.handleSubmit}
           onChangeName={this.onChangeName}
           contacts={this.getFilteredContacts()}
-          delete={this.handleDeleteUser}
+          // delete={this.handleDeleteUser}
         />
+        {/* <Filter
+        onChange={this.getFilteredContacts}/> */}
+        <ContactList
+          contacts={this.getFilteredContacts()}
+          onDelete={this.handleDeleteUser} />
       </Sections>
     );
   }
