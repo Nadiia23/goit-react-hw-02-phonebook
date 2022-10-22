@@ -45,6 +45,8 @@ export class Phonebook extends Component {
 
           <button className={s.btnAdd} type="submit">Add contact</button>
         </form>
+        
+        <h2 className={s.contactsTitle}>Contacts</h2>
         <label  className={s.label} htmlFor="input">Find contacts by name</label>
         <input className={s.input}
           type="text"
@@ -52,8 +54,7 @@ export class Phonebook extends Component {
           value={this.props.filter}
           onChange={this.props.onChangeName}
         />
-        <h2 className={s.contactsTitle}>Contacts</h2>
-        <ul className={s.contactsList}>
+        {/* <ul className={s.contactsList}>
           {this.props.contacts.map(contact => (
             <li className={s.contactsItem} key={contact.id}>
               <p className={s.contactsName}>{contact.name} : <span className={s.contactsNumber}>{contact.number}</span></p>
@@ -62,7 +63,7 @@ export class Phonebook extends Component {
               </button>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </>
     );
   }
