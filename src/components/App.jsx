@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Sections from './Sections/Sections';
-import { Phonebook } from './Form/Phonebook';
+import { Phonebook } from './Form/ContactForm';
 import { nanoid } from 'nanoid';
 import { ContactList } from './ContactList/ContactList';
-// import { Filter } from './Filter/Filter';
-// import ContactListItem from './ContactList/ContactListItem.js';
+import { Filter } from './Filter/Filter';
+
 
 export class App extends Component {
   state = {
@@ -23,17 +22,17 @@ export class App extends Component {
     });
   };
 
-  getFilteredContacts = () => {
-    return this.state.contacts.filter(elem =>
-      elem.name.toLowerCase().includes(this.state.filter.toLowerCase())
-    );
+
+  // getFilteredContacts = () => {
+  //   return this.state.contacts.filter(elem =>
+  //     elem.name.toLowerCase().includes(this.state.filter.toLowerCase())
+  //   );
+  // };
+
+   getFilteredContacts = event => {
+    this.setState({ filter: event.currentTarget.value.toLowerCase() });
   };
 
-  onChangeName = event => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  };
 
   handleSubmit = (name, number) => {
     if (this.state.contacts.some(contact => contact.name === name)) {
@@ -46,26 +45,33 @@ export class App extends Component {
     });
   };
 
+
   render() {
-    // const { contacts, filter } = this.state;
-    // const visibleContacts = contacts.filter(({ name }) =>
-    //   name.toLowerCase().includes(filter)
-    // );
+    const { contacts, filter } = this.state;
+    const visibleContacts = contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filter)
+    );
     
     return (
-      <Sections title={'Phonebook'}>
+      <div style={{
+        display: 'flex',
+        flexDirection:'column',
+        textAlign: 'center',
+        alignItems: 'center',
+        fontSize: 30,
+        color: '#010101'
+      }}>
+        <h1>Phonebook</h1>
         <Phonebook
           phoneSubmit={this.handleSubmit}
-          onChangeName={this.onChangeName}
-          contacts={this.getFilteredContacts()}
-          // delete={this.handleDeleteUser}
         />
-        {/* <Filter
-        onChange={this.getFilteredContacts}/> */}
+        <h2>Contacts</h2>
+        <Filter onChange={this.getFilteredContacts} />
+        
         <ContactList
-          contacts={this.getFilteredContacts()}
+          contacts={visibleContacts}
           onDelete={this.handleDeleteUser} />
-      </Sections>
+      </div>
     );
   }
 }
