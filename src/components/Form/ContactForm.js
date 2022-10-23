@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 import s from './contactForm.module.css';
 
@@ -9,26 +10,28 @@ export class Phonebook extends Component {
   };
 
   onChangeName = event => {
+    const { name, value } = event.currentTarget;
+
     this.setState({
-      [event.target.name]: event.target.value,
+      [name]: value,
     });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.phoneSubmit(this.state.name, this.state.number);
+    const {name, number} = this.state
+    this.props.onSubmit(name, number);
     this.setState({ name: '', number: '' });
-
   };
 
 
   render() {
+    const { name, number } = this.state;
     return (
-      <>
         <form className={s.form} onSubmit={this.handleSubmit}>
-          <label className={s.label} htmlFor="input">Name</label>
+          <label className={s.label} htmlFor="name">Name</label>
           <input className={s.input}
-            value={this.state.name}
+            value={name}
             onChange={this.onChangeName}
             type="text"
             name="name"
@@ -39,7 +42,7 @@ export class Phonebook extends Component {
 
           <label className={s.label} htmlFor="input">Number</label>
           <input className={s.input}
-            value={this.state.number}
+            value={number}
             onChange={this.onChangeName}
             type="tel"
             name="number"
@@ -50,9 +53,10 @@ export class Phonebook extends Component {
 
           <button className={s.btnAdd} type="submit">Add contact</button>
         </form>
-     
-      </>
     );
   }
 }
 
+Phonebook.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

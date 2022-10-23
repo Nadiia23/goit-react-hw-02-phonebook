@@ -56,7 +56,7 @@ export class App extends Component {
       }}>
         <h1>Phonebook</h1>
         <Phonebook
-          phoneSubmit={this.handleSubmit}
+           onSubmit={this.handleSubmit}
         />
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.getFilteredContacts} />
