@@ -1,8 +1,8 @@
-// import PropTypes from 'prop-types';
 import { Component } from 'react';
 import s from './contactForm.module.css';
 
 export class Phonebook extends Component {
+  
   state = {
     name: '',
     number: '',
@@ -14,19 +14,18 @@ export class Phonebook extends Component {
     });
   };
 
-  handelSubmit = event => {
+  handleSubmit = event => {
     event.preventDefault();
     this.props.phoneSubmit(this.state.name, this.state.number);
     this.setState({ name: '', number: '' });
+
   };
-  
 
 
   render() {
     return (
       <>
-        <form className={s.form} onSubmit={this.handelSubmit}>
-          
+        <form className={s.form} onSubmit={this.handleSubmit}>
           <label className={s.label} htmlFor="input">Name</label>
           <input className={s.input}
             value={this.state.name}
@@ -57,6 +56,3 @@ export class Phonebook extends Component {
   }
 }
 
-// Phonebook.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };

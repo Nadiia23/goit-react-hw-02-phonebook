@@ -22,15 +22,8 @@ export class App extends Component {
     });
   };
 
-
-  // getFilteredContacts = () => {
-  //   return this.state.contacts.filter(elem =>
-  //     elem.name.toLowerCase().includes(this.state.filter.toLowerCase())
-  //   );
-  // };
-
    getFilteredContacts = event => {
-    this.setState({ filter: event.currentTarget.value.toLowerCase() });
+     this.setState({ filter: event.currentTarget.value.toLowerCase() });
   };
 
 
@@ -66,7 +59,7 @@ export class App extends Component {
           phoneSubmit={this.handleSubmit}
         />
         <h2>Contacts</h2>
-        <Filter onChange={this.getFilteredContacts} />
+        <Filter value={filter} onChange={this.getFilteredContacts} />
         
         <ContactList
           contacts={visibleContacts}
